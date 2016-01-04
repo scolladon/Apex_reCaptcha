@@ -8,7 +8,14 @@ private class Test_reCaptcha {
   @isTest static void testVerify() {
     Test.setMock(HttpCalloutMock.class, new Test_reCaptcha.GoogleHTTPCalloutMock());
     Test.startTest();
-    reCaptcha.verify('response', 'Salesforce');
+    reCaptcha.verify('response', new Map<String,String>{'X-Salesforce-SIP' => 'Salesforce'});
+    Test.stopTest();
+  }
+
+  @isTest static void testVerifyOverload() {
+    Test.setMock(HttpCalloutMock.class, new Test_reCaptcha.GoogleHTTPCalloutMock());
+    Test.startTest();
+    reCaptcha.verify('response');
     Test.stopTest();
   }
 
@@ -18,7 +25,7 @@ private class Test_reCaptcha {
   }
 
   @isTest static void testVerifyError() {
-    reCaptcha.verify('response', 'Salesforce');
+    reCaptcha.verify('response', new Map<String,String>{'X-Salesforce-SIP' => 'Salesforce'});
   }
 
   public class GoogleHTTPCalloutMock implements HttpCalloutMock {
@@ -31,5 +38,5 @@ private class Test_reCaptcha {
       res.setStatusCode(200);
       return res;
     }
-}
+  }
 }

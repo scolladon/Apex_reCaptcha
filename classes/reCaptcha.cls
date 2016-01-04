@@ -2,12 +2,12 @@ public with sharing class reCaptcha {
 
   private static final reCaptchaGoogle__c recaptchaConfig = reCaptchaGoogle__c.getOrgDefaults();
 
-  public static Boolean verify(String response, String remoteHost) {
+  public static Boolean verify(String response, Map<String, String> hdrs) {
     Boolean verif = false;
     final HttpResponse res = makeRequest(
       'secret=' + recaptchaConfig.secretKey__c +
       '&response='  + response +
-      '&remoteip='  + remoteHost
+      '&remoteip='  + reCaptcha.remoteHost(hdrs)
     );
     if (res != null) {
       if ( res.getStatusCode() == 200 ) {
@@ -24,14 +24,18 @@ public with sharing class reCaptcha {
     return verif;
   }
 
-  private static HttpResponse makeRequest(string body)  {
-    HttpResponse response = null;
-    HttpRequest req = new HttpRequest();
+  public static Boolean verify(String response) {
+    return reCaptcha.verify(response, ApexPages.currentPage().getHeaders());
+  }
+
+  private static HttpResponse makeRequest(final string body)  {
+    final HttpResponse response;
+    final HttpRequest req = new HttpRequest();
     req.setEndpoint(recaptchaConfig.endpoint__c);
     req.setMethod('POST');
     req.setBody (body);
     try {
-      Http http = new Http();
+      final Http http = new Http();
       response = http.send(req);
     } catch(System.Exception e) {
       // Handle error here
@@ -39,7 +43,8 @@ public with sharing class reCaptcha {
     return response;
   }
 
-  public static String remoteHost(Map<String, String> hdrs) {
+  @TestVisible
+  private static String remoteHost(final Map<String, String> hdrs) {
     String ret = '127.0.0.1';
     if (hdrs.get('x-original-remote-addr')!= null)
       ret =  hdrs.get('x-original-remote-addr');
