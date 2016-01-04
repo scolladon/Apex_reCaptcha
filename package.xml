@@ -10,7 +10,7 @@
         <name>ApexComponent</name>
     </types>
     <types>
-        <members>reCaptchaGoogle__c.Endpoint__c</members>
+        <members>reCaptchaGoogle__c.endpoint__c</members>
         <members>reCaptchaGoogle__c.PublicKey__c</members>
         <members>reCaptchaGoogle__c.SecretKey__c</members>
         <members>reCaptchaGoogle__c.libraryUrl__c</members>
