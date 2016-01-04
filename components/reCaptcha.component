@@ -1,0 +1,16 @@
+<apex:component >
+  <apex:includeScript value="{!$Setup.reCaptchaGoogle__c.libraryUrl__c}?onload=loadCaptcha&render=explicit"></apex:includeScript>
+  <apex:outputPanel layout="none">
+      <div id="g-recaptcha" class="g-recaptcha" data-sitekey="{!$Setup.reCaptchaGoogle__c.publicKey__c}"></div>
+  </apex:outputPanel>
+  <script>
+    var captchaContainer = null;
+    var loadCaptcha = function() {
+      captchaContainer = grecaptcha.render('g-recaptcha', {
+        'sitekey' : '{!$Setup.reCaptchaGoogle__c.PublicKey__c}',
+        'callback' : function(response) {
+        }
+      });
+    };
+  </script>
+</apex:component>
