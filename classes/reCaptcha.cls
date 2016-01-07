@@ -24,23 +24,22 @@ public with sharing class reCaptcha {
     return verif;
   }
 
-  public static Boolean verify(String response) {
+  public static Boolean verify(final String response) {
     return reCaptcha.verify(response, ApexPages.currentPage().getHeaders());
   }
 
   private static HttpResponse makeRequest(final string body)  {
-    final HttpResponse response;
     final HttpRequest req = new HttpRequest();
     req.setEndpoint(recaptchaConfig.endpoint__c);
     req.setMethod('POST');
     req.setBody (body);
     try {
       final Http http = new Http();
-      response = http.send(req);
+      return http.send(req);
     } catch(System.Exception e) {
       // Handle error here
     }
-    return response;
+    return null;
   }
 
   @TestVisible
