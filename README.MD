@@ -4,6 +4,8 @@ Apex reCaptcha
 Google reCaptcha Apex implementation for Salesforce.
 Visualforce integration + Apex helper class
 
+[![Code Climate](https://codeclimate.com/repos/575156212ac8bd377900b111/badges/0073eaa6ac85b171ebd4/gpa.svg)](https://codeclimate.com/repos/575156212ac8bd377900b111/feed)
+
 Test Coverage : 100%
 
 <a href="https://githubsfdeploy.herokuapp.com?owner=ForceComDeveloper&repo=Apex_reCaptcha">
