@@ -33,13 +33,13 @@ public with sharing class reCaptcha {
     req.setEndpoint(recaptchaConfig.endpoint__c);
     req.setMethod('POST');
     req.setBody (body);
+    HttpResponse res;
     try {
       final Http http = new Http();
-      return http.send(req);
+      res = http.send(req);
     } catch(System.Exception e) {
-      req = null;
     }
-    return req;
+    return res;
   }
 
   @TestVisible
