@@ -2,7 +2,7 @@ public with sharing class reCaptcha {
 
   private static final reCaptchaGoogle__c recaptchaConfig = reCaptchaGoogle__c.getOrgDefaults();
 
-  public static Boolean verify(String response, Map<String, String> hdrs) {
+  public static Boolean verify(final String response, final Map<String, String> hdrs) {
     Boolean verif = false;
     final HttpResponse res = makeRequest(
       'secret=' + recaptchaConfig.secretKey__c +
@@ -37,9 +37,9 @@ public with sharing class reCaptcha {
       final Http http = new Http();
       return http.send(req);
     } catch(System.Exception e) {
-      // Handle error here
+      req = null;
     }
-    return null;
+    return req;
   }
 
   @TestVisible
